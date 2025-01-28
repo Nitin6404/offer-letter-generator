@@ -23,4 +23,4 @@ export const useOfferLetterStore = create<OfferLetterStore>((set) => ({
   setOfferLetterData: (data) => set({ offerLetterData: data }),
   setIsGenerating: (status) => set({ isGenerating: status }),
   resetStore: () => set({ offerLetterData: null, isGenerating: false }),
-})); 
+}));

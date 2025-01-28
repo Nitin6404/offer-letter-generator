@@ -8,9 +8,9 @@ export default function Home() {
   const { offerLetterData } = useOfferLetterStore();
 
   return (
-    <main className="min-h-screen p-8 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <main className="min-h-screen bg-gray-50 p-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <OfferLetterForm />
           {offerLetterData && <OfferLetterPreview data={offerLetterData} />}
         </div>

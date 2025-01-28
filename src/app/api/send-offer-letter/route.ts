@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const { email, offerLetterData } = await request.json();
 
     const { data, error } = await resend.emails.send({
-      from: "noreply@trakiz.tech",
+      from: 'noreply@trakiz.tech',
       to: email,
       subject: `Offer Letter from ${offerLetterData.companyName}`,
       html: `
@@ -40,4 +40,4 @@ export async function POST(request: Request) {
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
-} 
+}

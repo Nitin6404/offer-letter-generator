@@ -16,28 +16,28 @@ export default function SharedOfferLetter({ params }: { params: { id: string } }
       setOfferData(decodedData);
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Invalid or expired offer letter link",
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Invalid or expired offer letter link',
       });
     }
   }, [params.id, toast]);
 
   if (!offerData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <p>Loading offer letter...</p>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen p-8 bg-gray-50">
-      <div className="max-w-3xl mx-auto">
+    <main className="min-h-screen bg-gray-50 p-8">
+      <div className="mx-auto max-w-3xl">
         <Card className="p-6">
           <OfferLetterTemplate data={offerData} />
         </Card>
       </div>
     </main>
   );
-} 
+}

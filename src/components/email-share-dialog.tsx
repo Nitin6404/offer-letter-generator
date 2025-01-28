@@ -1,12 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Loader2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import { OfferLetterData } from '@/store/useOfferLetterStore';
 
 interface EmailShareDialogProps {
@@ -39,15 +45,15 @@ export function EmailShareDialog({ isOpen, onClose, offerLetterData }: EmailShar
       if (!response.ok) throw new Error('Failed to send email');
 
       toast({
-        title: "Success",
-        description: "Offer letter sent successfully!",
+        title: 'Success',
+        description: 'Offer letter sent successfully!',
       });
       onClose();
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to send offer letter",
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to send offer letter',
       });
     } finally {
       setIsSending(false);
@@ -85,4 +91,4 @@ export function EmailShareDialog({ isOpen, onClose, offerLetterData }: EmailShar
       </DialogContent>
     </Dialog>
   );
-} 
+}

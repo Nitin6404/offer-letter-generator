@@ -2,13 +2,13 @@
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Loader2, RefreshCw } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Loader2, RefreshCw } from 'lucide-react';
 import { useOfferLetterStore } from '@/store/useOfferLetterStore';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from '@/hooks/use-toast';
 
 interface FormValues {
   candidateName: string;
@@ -39,7 +39,8 @@ const formFields = [
 
 export function OfferLetterForm() {
   const { toast } = useToast();
-  const { setOfferLetterData, offerLetterData, isGenerating, setIsGenerating, resetStore } = useOfferLetterStore();
+  const { setOfferLetterData, offerLetterData, isGenerating, setIsGenerating, resetStore } =
+    useOfferLetterStore();
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -54,17 +55,18 @@ export function OfferLetterForm() {
     onSubmit: async (values) => {
       setIsGenerating(true);
       try {
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         setOfferLetterData(values);
         toast({
-          title: "Success",
-          description: "Offer letter generated successfully!",
+          variant: 'default',
+          title: 'Success',
+          description: 'Offer letter generated successfully!',
         });
       } catch (error) {
         toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Failed to generate offer letter",
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Failed to generate offer letter',
         });
       } finally {
         setIsGenerating(false);
@@ -73,11 +75,9 @@ export function OfferLetterForm() {
   });
 
   return (
-    <Card className="md:sticky md:top-8 h-fit">
+    <Card className="h-fit md:sticky md:top-8">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">
-          Offer Letter Generator
-        </CardTitle>
+        <CardTitle className="text-center text-2xl font-bold">Offer Letter Generator</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={formik.handleSubmit} className="space-y-6">
@@ -89,9 +89,7 @@ export function OfferLetterForm() {
                 type={field.type}
                 {...formik.getFieldProps(field.id)}
                 className={
-                  formik.touched[field.id] && formik.errors[field.id] 
-                    ? 'border-red-500' 
-                    : ''
+                  formik.touched[field.id] && formik.errors[field.id] ? 'border-red-500' : ''
                 }
               />
               {formik.touched[field.id] && formik.errors[field.id] && (
@@ -101,22 +99,13 @@ export function OfferLetterForm() {
           ))}
 
           <div className="flex gap-4">
-            <Button 
-              type="submit" 
-              className="flex-1"
-              disabled={isGenerating}
-            >
+            <Button type="submit" className="flex-1" disabled={isGenerating}>
               {isGenerating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Generate Offer Letter
             </Button>
 
             {offerLetterData && (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={resetStore}
-                disabled={isGenerating}
-              >
+              <Button type="button" variant="outline" onClick={resetStore} disabled={isGenerating}>
                 <RefreshCw className="h-4 w-4" />
               </Button>
             )}
@@ -125,4 +114,4 @@ export function OfferLetterForm() {
       </CardContent>
     </Card>
   );
-} 
+}
