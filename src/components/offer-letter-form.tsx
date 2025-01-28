@@ -68,6 +68,7 @@ export function OfferLetterForm() {
           title: 'Error',
           description: 'Failed to generate offer letter',
         });
+        console.log('Error: ', error);
       } finally {
         setIsGenerating(false);
       }

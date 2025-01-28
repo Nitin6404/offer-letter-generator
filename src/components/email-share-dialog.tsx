@@ -55,6 +55,7 @@ export function EmailShareDialog({ isOpen, onClose, offerLetterData }: EmailShar
         title: 'Error',
         description: 'Failed to send offer letter',
       });
+      console.log('Error: ', error);
     } finally {
       setIsSending(false);
     }

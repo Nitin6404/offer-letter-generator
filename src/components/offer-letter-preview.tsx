@@ -52,6 +52,7 @@ export function OfferLetterPreview({ data }: OfferLetterPreviewProps) {
           title: 'Error',
           description: 'Failed to download PDF',
         });
+        console.log('Error: ', error);
       } finally {
         setIsDownloading(false);
       }
@@ -75,6 +76,7 @@ export function OfferLetterPreview({ data }: OfferLetterPreviewProps) {
         title: 'Error',
         description: 'Failed to copy link',
       });
+      console.log('Error: ', error);
     }
   };
 

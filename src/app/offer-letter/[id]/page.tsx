@@ -20,6 +20,7 @@ export default function SharedOfferLetter({ params }: { params: { id: string } }
         title: 'Error',
         description: 'Invalid or expired offer letter link',
       });
+      console.log('Error: ', error);
     }
   }, [params.id, toast]);
 
