@@ -1,8 +1,8 @@
 'use client';
 
-import { useOfferLetterStore } from '@/store/useOfferLetterStore';
 import { OfferLetterForm } from '@/components/offer-letter-form';
 import { OfferLetterPreview } from '@/components/offer-letter-preview';
+import { useOfferLetterStore } from '@/store/useOfferLetterStore';
 
 export default function Home() {
   const { offerLetterData } = useOfferLetterStore();

@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { OfferLetterTemplate } from '@/components/offer-letter-template';
 import { Button } from '@/components/ui/button';
-import { Loader2, FileDown, Share2 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,11 +9,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/hooks/use-toast';
-import { OfferLetterTemplate } from '@/components/offer-letter-template';
-import { OfferLetterData } from '@/store/useOfferLetterStore';
 import { generatePDF } from '@/lib/pdf-generator';
-import { EmailShareDialog } from './email-share-dialog';
+import { OfferLetterData } from '@/store/useOfferLetterStore';
+import { ShareableLink } from '@/types/share';
+import { FileDown, Loader2, Share2 } from 'lucide-react';
+import { useState } from 'react';
 import { AuthDialog } from './auth-dialog';
+import { EmailShareDialog } from './email-share-dialog';
 
 interface OfferLetterPreviewProps {
   data: OfferLetterData;
@@ -62,21 +63,43 @@ export function OfferLetterPreview({ data }: OfferLetterPreviewProps) {
     setPendingAction(null);
   };
 
+  const generateShareableLink = (data: OfferLetterData): string => {
+    const shareableData: ShareableLink = {
+      data,
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days from now
+    };
+
+    try {
+      const jsonString = JSON.stringify(shareableData);
+      console.log('JSON String:', jsonString);
+      const base64String = btoa(jsonString);
+      console.log('Base64 String:', base64String);
+      const encodedString = encodeURIComponent(base64String);
+      console.log('Encoded String:', encodedString);
+
+      return `${window.location.origin}/offer-letter/${encodedString}`;
+    } catch (error) {
+      console.error('Error generating link:', error);
+      throw new Error('Failed to generate shareable link');
+    }
+  };
+
   const handleCopyLink = async () => {
     try {
-      const shareableLink = `${window.location.origin}/offer-letter/${btoa(JSON.stringify(data))}`;
+      const shareableLink = generateShareableLink(data);
       await navigator.clipboard.writeText(shareableLink);
+
       toast({
         title: 'Success',
         description: 'Link copied to clipboard!',
       });
     } catch (error) {
+      console.error('Copy error:', error);
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Failed to copy link',
+        description: error instanceof Error ? error.message : 'Failed to copy link',
       });
-      console.log('Error: ', error);
     }
   };
 

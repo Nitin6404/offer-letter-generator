@@ -10,7 +10,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check-types": "tsc --pretty --noEmit",
-    "prepare": "husky",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
